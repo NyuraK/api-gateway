@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: api-gateway
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${REGISTRY_HOST:localhost}:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    preferIpAddress: true
+
+server:
+  port: 8081
+  undertow:
+    worker-threads: 112
+    io-threads: 14
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics, routes
+
+ribbon:
+  eureka:
+    enabled: true
+
+zuul:
+  retryable: true
+  host:
+    max-total-connections: 150000
+    max-per-route-connections: 5000
+    connect-timeout-millis: 300000
+    socket-timeout-millis: 300000
+  ignoredServices: '*'
+  routes:
+    order-service:
+      path: /order-service/**
+      serviceId: order-management
+    product-service:
+      path: /product-service/api/v1/**
+      serviceId: product-management
+    payment-service:
+      path: /payment-service/api/v1/**
+      serviceId: payment-management
