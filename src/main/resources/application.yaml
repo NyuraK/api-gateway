@@ -40,8 +40,8 @@ zuul:
       path: /order-service/**
       serviceId: order-management
     product-service:
-      path: /product-service/api/v1/**
+      path: /product-service/**
       serviceId: product-management
     payment-service:
-      path: /payment-service/api/v1/**
+      path: /payment-service/**
       serviceId: payment-management
